@@ -20,6 +20,8 @@ import RecentsContainer from '../containers/RecentsContainer';
 import FavoritesContainer from '../containers/FavoritesContainer';
 import StatsContainer from '../containers/StatsContainer';
 
+import showBadges from '../lib/show-badges'
+
 const App = () => (
   <UserProvider>
     <ProjectProvider>
@@ -43,66 +45,68 @@ const App = () => (
                             userStatsByDay,
                             userStatsByMonth
                           }) => (
-                            <Box className="main" pad="large" tag="main">
-                              <UserHeading
-                                project={project}
-                                explorer={explorer}
-                                matchesUser={matchesUser}
-                              />
-                              <Box
-                                direction="row"
-                                basis="full"
-                                justify="between"
-                                wrap
-                              >
-                                <FavoritesProvider
+                              <Box className="main" pad="large" tag="main">
+                                <UserHeading
                                   project={project}
                                   explorer={explorer}
-                                >
-                                  <FavoritesContext.Consumer>
-                                    {({
-                                      favoriteCollection,
-                                      linkedSubjects
-                                    }) => (
-                                      <Box
-                                        className="box"
-                                        colorIndex="light-1"
-                                        flex="grow"
-                                        justify="between"
-                                        margin={{
-                                          bottom: 'medium',
-                                          right: 'medium'
-                                        }}
-                                      >
-                                        <RecentsContainer
-                                          explorer={explorer}
-                                          project={project}
-                                        />
-                                        <hr className="main__hr" />
-                                        <FavoritesContainer
-                                          favoriteCollection={
-                                            favoriteCollection
-                                          }
-                                          linkedSubjects={linkedSubjects}
-                                          project={project}
-                                        />
-                                      </Box>
-                                    )}
-                                  </FavoritesContext.Consumer>
-                                </FavoritesProvider>
-                                <StatsContainer
-                                  collectiveStatsByDay={collectiveStatsByDay}
-                                  fetchCollectiveStats={fetchCollectiveStats}
-                                  userStatsByDay={userStatsByDay}
-                                  userStatsByMonth={userStatsByMonth}
+                                  matchesUser={matchesUser}
                                 />
+                                <Box
+                                  direction="row"
+                                  basis="full"
+                                  justify="between"
+                                  wrap
+                                >
+                                  <FavoritesProvider
+                                    project={project}
+                                    explorer={explorer}
+                                  >
+                                    <FavoritesContext.Consumer>
+                                      {({
+                                        favoriteCollection,
+                                        linkedSubjects
+                                      }) => (
+                                          <Box
+                                            className="box"
+                                            colorIndex="light-1"
+                                            flex="grow"
+                                            justify="between"
+                                            margin={{
+                                              bottom: 'medium',
+                                              right: 'medium'
+                                            }}
+                                          >
+                                            <RecentsContainer
+                                              explorer={explorer}
+                                              project={project}
+                                            />
+                                            <hr className="main__hr" />
+                                            <FavoritesContainer
+                                              favoriteCollection={
+                                                favoriteCollection
+                                              }
+                                              linkedSubjects={linkedSubjects}
+                                              project={project}
+                                            />
+                                          </Box>
+                                        )}
+                                    </FavoritesContext.Consumer>
+                                  </FavoritesProvider>
+                                  <StatsContainer
+                                    collectiveStatsByDay={collectiveStatsByDay}
+                                    fetchCollectiveStats={fetchCollectiveStats}
+                                    userStatsByDay={userStatsByDay}
+                                    userStatsByMonth={userStatsByMonth}
+                                  />
+                                </Box>
+                                {showBadges(project) ?
+                                  <BadgeContainer
+                                    explorer={explorer}
+                                    userStatsByMonth={userStatsByMonth}
+                                  /> : null
+                                }
                               </Box>
-                              <BadgeContainer
-                                explorer={explorer}
-                                userStatsByMonth={userStatsByMonth}
-                              />
-                            </Box>
-                          )}
+                            )}
                         </StatsContext.Consumer>
                       </StatsProvider>
                     )}

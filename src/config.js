@@ -32,6 +32,7 @@ const baseConfig = {
   },
   production: {
     caesar: 'https://caesar.zooniverse.org',
+    organizationId: '16',
     origin: window.location.href,
     panoptesAppId:
       '940c60fa02251f156c0d9129e3b8d885424fe729da4e4a7750525ca154bdb3d7',
